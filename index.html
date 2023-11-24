@@ -28,7 +28,7 @@
             <div class="col-md-4">
                 <div class="deposit status">
                     <h5>Deposit</h5>
-                    <h2>$00</h2>
+                    <h2>$ <span id="currentDeposit">00</span></h2>
                 </div>
             </div>
             <div class="col-md-4">
@@ -40,7 +40,7 @@
             <div class="col-md-4">
                 <div class="balance status">
                     <h5>Balance</h5>
-                    <h2>$1240</h2>
+                    <h2>$ <span id="currentBalance">1240</span></h2>
                 </div>
             </div>
         </div>
@@ -49,9 +49,9 @@
             <div class="col-md-6">
                 <div class="submit-area">
                     <h5>Deposit</h5>
-                    <input type="text" class="form-control" placeholder="$ For Deposit">
+                    <input id="depositAmount" type="text" class="form-control" placeholder="$ For Deposit">
                     <br>
-                    <button class="btn btn-success">Deposit</button>
+                    <button id="depositBtn" class="btn btn-success">Deposit</button>
                 </div>
             </div>
             <div class="col-md-6">
@@ -65,6 +65,8 @@
         </div>
     </div>
     <script>
+
+        // login page handler
         const loginBtn = document.getElementById('login');
         loginBtn.addEventListener('click', function () {
             const loginArea = document.getElementById('login-area');
@@ -72,6 +74,26 @@
             const transArea = document.getElementById("transaction-area");
             transArea.style.display = "block";
         })
+
+        // transaction page event handler
+
+        const depositbtn = document.getElementById('depositBtn');
+        depositbtn.addEventListener('click', function(){
+            const depositAmount = document.getElementById('depositAmount').value;
+            const numberAmount = parseFloat(depositAmount);
+
+            addSpanText('currentDeposit', numberAmount);
+            addSpanText('currentBalance', numberAmount);
+
+            document.getElementById('depositAmount').value = "";
+        })
+
+        function addSpanText(id, numberAmount){
+            const currantBalance = document.getElementById(id).innerText;
+            const currantBalanceNumber = parseFloat(currantBalance);
+            const totalBalance = currantBalanceNumber + numberAmount;
+            document.getElementById(id).innerText = totalBalance;
+        }
 
     </script>
 </body>
